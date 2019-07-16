@@ -9,7 +9,6 @@ import Details from './components/Details';
 import Navbar from './components/Navbar';
 import ProductList from './components/ProductList';
 import React from 'react';
-import logo from './logo.svg';
 
 function App() {
   return (
