@@ -1,7 +1,7 @@
 ## Cryptofront
 
 This site sells crypto fan gear!
-It uses Netlify and paypal for payment processing and React/Redux for reusable components and state management.
+It uses Netlify and paypal for payment processing and React/Context API(rather than prop drilling or Redux) for reusable components and state management.
 
 ## Available Scripts
 ### `npm start`
