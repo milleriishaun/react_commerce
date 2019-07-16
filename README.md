@@ -1,9 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Cryptofront
+
+This site sells crypto fan gear!
+It uses Netlify and paypal for payment processing and React/Redux for reusable components and state management.
 
 ## Available Scripts
-
-In the project directory, you can run:
-
 ### `npm start`
 
 Runs the app in the development mode.<br>
