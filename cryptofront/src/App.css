@@ -1,0 +1,30 @@
+:root {
+  --mainBlue: #2a2a72;
+  --lightBlue: #009ffd;
+  --mainWhite: #f3f3f3;
+  --mainDark: #232528;
+  --mainYellow: #ffa400;
+}
+
+body {
+  font-family: 'Oswald', sans-serif !important;
+  /* bootstrap overrides sans-serif by default... so we need to make important to get our fonts to be included*/
+  /* font-family: 'Permanent Marker', cursive; */
+  /* we will be using styled components because they are reusable, so we will not be writing everything in App.css */
+  background: var(--mainWhite) !important;
+  color: var(--mainDark) !important;
+}
+
+.text-title {
+  font-family: 'Permanent Marker', cursive;
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+}
+
+.text-blue {
+  color: var(--mainBlue);
+}
+
+.text-bright {
+  color: var(--lightBlue);
+}
