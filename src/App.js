@@ -1,21 +1,38 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import {Route, Switch} from "react-router-dom";
+
+import Cart from './components/Cart';
+import Default from './components/Default';
+import Details from './components/Details';
+import Navbar from './components/Navbar';
+import ProductList from './components/ProductList';
 import React from 'react';
 import logo from './logo.svg';
 
 function App() {
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-6">column number one</div>
-        <div className="col-6">
-          <span>
-            <i className="fa fa-home" />
-          </span>
-        </div>
-      </div>
-    </div>
+    <React.Fragment>
+      <Navbar />
+      <Switch>
+        <Route exact
+          path="/"
+          component={ProductList}
+        />
+        <Route
+          path="/details"
+          component={Details}
+        />
+        <Route
+          path="/cart"
+          component={Cart}
+        />
+        <Route
+          component={Default}
+        />
+      </Switch>
+    </React.Fragment>
   );
 }
 
