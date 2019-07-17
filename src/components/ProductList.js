@@ -15,10 +15,10 @@ export default class ProductList extends Component {
             <div className="row">
               <ProductConsumer>
                 {value => {
-                //   console.log("value: ",value)
-                    return value.products.map( product => {
-                        return <Product key={product.id} product={product} />
-                    })
+                  //   console.log("value: ",value)
+                  return value.products.map(product => {
+                    return <Product key={product.id} product={product} />;
+                  });
                 }}
               </ProductConsumer>
             </div>
