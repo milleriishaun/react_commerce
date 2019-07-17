@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { Link } from "react-router-dom";
 import { ProductConsumer } from "../context";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 export default class Product extends Component {
@@ -48,6 +49,18 @@ export default class Product extends Component {
   }
 }
 
+// PropTypes
+Product.propTypes = {
+    product: PropTypes.shape({
+        id: PropTypes.number,
+        img: PropTypes.string,
+        title: PropTypes.string,
+        price: PropTypes.number,
+        inCart: PropTypes.bool
+    }).isRequired
+}
+
+// styled components
 const ProductWrapper = styled.div`
   .card {
     border-color: transparent;
