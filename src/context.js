@@ -35,12 +35,23 @@ class ProductProvider extends Component {
 		});
 	};
 
-	handleDetail = () => {
-		console.log("hello from detail");
+	// utility method that gets the item by id
+	getItem = id => {
+		const product = this.state.products.find(item => item.id === id);
+		return product;
+	};
+
+	handleDetail = id => {
+		const product = this.getItem(id);
+		this.setState(() => {
+			return {
+				detailProduct: product,
+			};
+		});
 	};
 
 	addToCart = id => {
-		console.log("id", id);
+		console.log(`hello from add to cart.id is ${id}`);
 	};
 
 	// test difference between actual data and referenced data; JS uses references for objects stored in variables or arrays.
