@@ -14,7 +14,7 @@ class ProductProvider extends Component {
 	state = {
 		products: [],
 		detailProduct: detailProduct,
-		cart: [],
+		cart: storeProducts,
 		modalOpen: false,
 		modalProduct: detailProduct,
 		cartSubTotal: 0,
@@ -71,7 +71,7 @@ class ProductProvider extends Component {
 			() => {
 				return {
 					products: tempProducts,
-					cart: [...this.state.cart],
+					cart: [...this.state.cart, product],
 				};
 			},
 			() => {
