@@ -14,7 +14,7 @@ class ProductProvider extends Component {
 	state = {
 		products: [],
 		detailProduct: detailProduct,
-		cart: storeProducts,
+		cart: [],
 		modalOpen: false,
 		modalProduct: detailProduct,
 		cartSubTotal: 0,
@@ -67,6 +67,7 @@ class ProductProvider extends Component {
 		const price = product.price;
 		product.total = price;
 
+		// this is the moment that we add items to the cart
 		this.setState(
 			() => {
 				return {
@@ -75,7 +76,9 @@ class ProductProvider extends Component {
 				};
 			},
 			() => {
-				console.log(this.state);
+				// this is where and when we should update totals/subtotals
+				// console.log(this.state);
+				this.addTotals();
 			}
 		);
 	};
@@ -97,19 +100,124 @@ class ProductProvider extends Component {
 	};
 
 	increment = id => {
-		console.log("this is the increment method");
+		let tempCart = [...this.state.cart];
+
+		// look for the specific product that was selected
+		const selectedProduct = tempCart.find(item => item.id === id);
+
+		// look for the index, of the item in teh tempCart
+		const index = tempCart.indexOf(selectedProduct);
+
+		// assign the product to a product variable
+		const product = tempCart[index];
+
+		// now we want the value, without changing the index for that specific product
+		// we also want to change the quantity
+		product.count = product.count + 1;
+		// use this so that we always will have the correct totals
+		product.total = product.count * product.price;
+
+		this.setState(
+			() => {
+				return {
+					cart: [...tempCart],
+				};
+			},
+			() => {
+				this.addTotals();
+			}
+		);
 	};
 
 	decrement = id => {
-		console.log("this is the decrement method");
+		let tempCart = [...this.state.cart];
+		const selectedProduct = tempCart.find(item => item.id === id);
+		const index = tempCart.indexOf(selectedProduct);
+		const product = tempCart[index];
+
+		product.count = product.count - 1;
+
+		// we ned to account for total being 0, which will be empty cart
+		if (product.count === 0) {
+			this.removeItem(id);
+		} else {
+			product.total = product.count * product.price;
+			this.setState(
+				() => {
+					return {
+						cart: [...tempCart],
+					};
+				},
+				() => {
+					this.addTotals();
+				}
+			);
+		}
 	};
 
 	removeItem = id => {
-		console.log("item removed");
+		let tempProducts = [...this.state.products];
+		let tempCart = [...this.state.cart];
+
+		// whatever items are in the cart should be returned to cart, minus the one item with the id not included
+		tempCart = tempCart.filter(item => item.id !== id);
+
+		const index = tempProducts.indexOf(this.getItem(id));
+		let removedProduct = tempProducts[index];
+
+		// set up these values
+		removedProduct.inCart = false;
+		removedProduct.count = 0;
+		removedProduct.total = 0;
+
+		this.setState(
+			() => {
+				return {
+					cart: [...tempCart],
+					products: [...tempProducts],
+				};
+			},
+			() => {
+				this.addTotals();
+			}
+		);
 	};
 
 	clearCart = () => {
-		console.log("cart was cleared");
+		this.setState(
+			() => {
+				return {
+					cart: [],
+				};
+			},
+			() => {
+				this.setProducts();
+				this.addTotals();
+			}
+		);
+	};
+
+	addTotals = () => {
+		let subTotal = 0;
+		// get all the total values in the cart, using map
+		this.state.cart.map(item => (subTotal += item.total));
+
+		// now set up the other values, like tax
+		const tempTax = subTotal * 0.1;
+		// we want 2 decimals... otherwise ugly result
+		// we need to parse, so that it changes the returned string to a decimal, using fixed
+		const tax = parseFloat(tempTax.toFixed(2));
+
+		// now set up total
+		const total = subTotal + tax;
+
+		this.setState(() => {
+			return {
+				cartSubTotal: subTotal,
+				cartTax: tax,
+				cartTotal: total,
+			};
+		});
 	};
 
 	// test difference between actual data and referenced data; JS uses references for objects stored in variables or arrays.

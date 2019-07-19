@@ -38,10 +38,10 @@ export default function CartItem({ item, value }) {
 						<i className="fas fa-trash" />
 					</div>
 				</div>
-				<strong> item total : $ {total}</strong>
-				{total}
 			</div>
-			<div className="col-10 mx-auto col-lg-2">idk</div>
+			<div className="col-10 mx-auto col-lg-2">
+				<strong> item total : </strong>$ {total}
+			</div>
 		</div>
 	);
 }
